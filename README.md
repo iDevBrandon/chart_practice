@@ -1,0 +1,1 @@
+How to switch chart to Daily, weekly and monthly data in Chart JS
