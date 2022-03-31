@@ -1,3 +1,4 @@
+<!-- // https://www.youtube.com/watch?v=EVHi41f7psQ&t=100s -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -44,6 +45,10 @@
     <div class="chartCard">
       <div class="chartBox">
         <canvas id="myChart"></canvas>
+
+        <button onClick="timeFrame(this)" value="day">Day</button>
+        <button onClick="timeFrame(this)" value="week">Week</button>
+        <button onClick="timeFrame(this)" value="month">Month</button>
       </div>
     </div>
     <script
@@ -52,13 +57,141 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
+      const day = [
+        {
+          x: Date.parse("2021-11-01"),
+          y: 18,
+        },
+        {
+          x: Date.parse("2021-11-02"),
+          y: 12,
+        },
+        {
+          x: Date.parse("2021-11-03"),
+          y: 6,
+        },
+        {
+          x: Date.parse("2021-11-04"),
+          y: 9,
+        },
+        {
+          x: Date.parse("2021-11-05"),
+          y: 12,
+        },
+        {
+          x: Date.parse("2021-11-06"),
+          y: 28,
+        },
+        {
+          x: Date.parse("2021-11-07"),
+          y: 8,
+        },
+        {
+          x: Date.parse("2021-11-08"),
+          y: 8,
+        },
+        {
+          x: Date.parse("2021-11-09"),
+          y: 8,
+        },
+        {
+          x: Date.parse("2021-11-10"),
+          y: 8,
+        },
+      ];
+
+      const week = [
+        {
+          x: Date.parse("2021-10-01"),
+          y: 65,
+        },
+        {
+          x: Date.parse("2021-10-08"),
+          y: 23,
+        },
+        {
+          x: Date.parse("2021-10-15"),
+          y: 76,
+        },
+        {
+          x: Date.parse("2021-10-23"),
+          y: 69,
+        },
+        {
+          x: Date.parse("2021-10-30"),
+          y: 30,
+        },
+        {
+          x: Date.parse("2021-10-01"),
+          y: 65,
+        },
+        {
+          x: Date.parse("2021-11-08"),
+          y: 23,
+        },
+        {
+          x: Date.parse("2021-11-15"),
+          y: 76,
+        },
+        {
+          x: Date.parse("2021-11-23"),
+          y: 69,
+        },
+        {
+          x: Date.parse("2021-11-30"),
+          y: 30,
+        },
+      ];
+
+      const month = [
+        {
+          x: Date.parse("2021-01-01"),
+          y: 234,
+        },
+        {
+          x: Date.parse("2021-02-01"),
+          y: 32,
+        },
+        {
+          x: Date.parse("2021-03-01"),
+          y: 11,
+        },
+        {
+          x: Date.parse("2021-04-01"),
+          y: 39,
+        },
+        {
+          x: Date.parse("2021-05-01"),
+          y: 12,
+        },
+        {
+          x: Date.parse("2021-06-01"),
+          y: 234,
+        },
+        {
+          x: Date.parse("2021-07-01"),
+          y: 32,
+        },
+        {
+          x: Date.parse("2021-08-01"),
+          y: 11,
+        },
+        {
+          x: Date.parse("2021-09-01"),
+          y: 39,
+        },
+        {
+          x: Date.parse("2021-10-01"),
+          y: 12,
+        },
+      ];
       // setup
       const data = {
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        // labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [
           {
-            label: "Weekly Sales",
-            data: [18, 12, 6, 9, 12, 3, 9],
+            label: "세일",
+            data: day,
             backgroundColor: [
               "rgba(255, 26, 104, 0.2)",
               "rgba(54, 162, 235, 0.2)",
@@ -88,6 +221,12 @@
         data,
         options: {
           scales: {
+            x: {
+              type: "time",
+              time: {
+                unit: "day",
+              },
+            },
             y: {
               beginAtZero: true,
             },
@@ -97,6 +236,23 @@
 
       // render init block
       const myChart = new Chart(document.getElementById("myChart"), config);
+
+      function timeFrame(period) {
+        console.log(period.value);
+        if (period.value === "day") {
+          myChart.config.options.scales.x.time.unit = period.value;
+          myChart.config.data.datasets[0].data = day;
+        }
+        if (period.value === "week") {
+          myChart.config.options.scales.x.time.unit = period.value;
+          myChart.config.data.datasets[0].data = week;
+        }
+        if (period.value === "month") {
+          myChart.config.options.scales.x.time.unit = period.value;
+          myChart.config.data.datasets[0].data = month;
+        }
+        myChart.update();
+      }
     </script>
   </body>
 </html>
