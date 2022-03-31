@@ -1,4 +1,9 @@
-<!-- // https://www.youtube.com/watch?v=EVHi41f7psQ&t=100s -->
+<!-- How to switch day, week, month by buttons
+https://www.youtube.com/watch?v=EVHi41f7psQ&t=100s -->
+
+<!-- How to filter a chart between dates 
+https://www.youtube.com/watch?v=Gc5JF2TUG7o   -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,6 +54,19 @@
         <button onClick="timeFrame(this)" value="day">Day</button>
         <button onClick="timeFrame(this)" value="week">Week</button>
         <button onClick="timeFrame(this)" value="month">Month</button>
+
+        <input
+          onChange="filterData()"
+          type="date"
+          id="startdate"
+          value="2021-08-25"
+        />
+        <input
+          onChange="filterData()"
+          type="date"
+          id="endate"
+          value="2021-08-31"
+        />
       </div>
     </div>
     <script
@@ -185,13 +203,24 @@
           y: 12,
         },
       ];
+      const dates = [
+        "2021-08-25",
+        "2021-08-26",
+        "2021-08-27",
+        "2021-08-28",
+        "2021-08-29",
+        "2021-08-30",
+        "2021-08-31",
+      ];
+      const datapoints = [1, 2, 3, 4, 5, 6, 7];
       // setup
       const data = {
+        labels: dates,
         // labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [
           {
             label: "세일",
-            data: day,
+            data: datapoints,
             backgroundColor: [
               "rgba(255, 26, 104, 0.2)",
               "rgba(54, 162, 235, 0.2)",
@@ -252,6 +281,21 @@
           myChart.config.data.datasets[0].data = month;
         }
         myChart.update();
+      }
+
+      function filterData() {
+        const dates2 = [...dates];
+        console.log(dates2);
+        const startdate = document.getElementById("startdate");
+        const enddate = document.getElementById("enddate");
+
+        // get the index number in array
+        const indexstartdate = dates2.indexOf(startdate.value);
+        const indexenddate = dates2.indexOf(enddate.value);
+
+        // slice the cake from array, only showing the selected section
+        const filterDate = dates2.slice(indexstartdate, indexenddate + 1);
+
       }
     </script>
   </body>
